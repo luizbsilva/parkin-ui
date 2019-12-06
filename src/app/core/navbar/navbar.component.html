@@ -1,0 +1,33 @@
+<nav class="navbar">
+
+  <div class="container">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <a href="javascript:;" class="navbar-toggle" (click)="exibindoMenu = !exibindoMenu"><i
+            class="fa fa-bars"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <ul class="navbar-menu" [hidden]="!exibindoMenu">
+    <li class="navbar-usuario">{{ auth.jwtPayload?.nome }}</li>
+    <li class="navbar-menuitem" routerLinkActive="ativo" *ngIf="auth.temPermissao('ROLE_PESQUISAR_ESTACIONAMENTO')"><a
+        routerLink="/dashboard">Dashboard</a></li>
+    <li class="navbar-menuitem" routerLinkActive="ativo" *ngIf="auth.temPermissao('ROLE_PESQUISAR_DASHBOARD')"><a
+        routerLink="/estacionamento/pesquisar">Pesquisar Veiculos Estacionados</a></li>
+    <li class="navbar-menuitem" routerLinkActive="ativo" *ngIf="auth.temPermissao('ROLE_CADASTRAR_ESTACIONAMENTO')"><a
+        routerLink="/estacionamento">Estacionamento</a></li>
+    <li class="navbar-menuitem" routerLinkActive="ativo" *ngIf="auth.temPermissao('ROLE_PESQUISAR_PESSOA')"><a
+        routerLink="/pessoas">Clientes</a></li>
+    <li class="navbar-menuitem" routerLinkActive="ativo" *ngIf="auth.temPermissao('ROLE_PESQUISAR_USUARIO')"><a
+        routerLink="/usuarios">Usuários</a></li>
+    <li class="navbar-menuitem" routerLinkActive="ativo" *ngIf="auth.temPermissao('ROLE_PESQUISAR_PATIO')"><a
+        routerLink="/patios">Patios</a></li>
+    <li class="navbar-menuitem" routerLinkActive="ativo" *ngIf="auth.temPermissao('ROLE_PESQUISAR_PERMISSAO')"><a
+        routerLink="/permissoes">Permissão Usuários</a></li>
+    <li class="navbar-menuitem" routerLinkActive="ativo" *ngIf="auth.temPermissao('ROLE_PESQUISAR_VEICULO')"><a
+        routerLink="/veiculos">Veiculos</a></li>
+    <li class="navbar-menuitem"><a href="javascript:;" (click)="logout()">Logout</a></li>
+  </ul>
+
+</nav>

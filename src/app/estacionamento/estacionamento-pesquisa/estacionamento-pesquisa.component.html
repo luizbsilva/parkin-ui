@@ -1,0 +1,63 @@
+<div class="container">
+    <form autocomplete="off" (ngSubmit)="pesquisar()" [formGroup]="formulario">
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <h1>Pesquisar Estacionamento</h1>
+        </div>
+  
+        <div class="ui-g-6 ui-md-6 ui-fluid" formGroupName="patio">
+          <label>Patio Destino do Veiculo</label>
+          <p-dropdown name="patio" [options]="patios" placeholder="Selecione"
+            [autoWidth]="false" [filter]="true" formControlName="codigo"></p-dropdown>
+        </div>
+
+        <div class="ui-g-2 ui-md-2 ui-fluid">
+          <label>Data</label>
+          <p-calendar name="dataRelatorio" dateFormat="dd/mm/yy" [inline]="false" [readonlyInput]="false" [showIcon]="false"
+            formControlName="dataRelatorio"></p-calendar>
+        </div>
+  
+        
+  
+        <div class="ui-g-12">
+          <button pButton type="submit" label="Pesquisar"></button>
+        </div>
+      </div>
+    </form>
+
+
+  <div class="ui-g">
+      <div class="ui-g-12">
+        <p-table [value]="estacionamentos" #tabela>
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Placa Veiculo</th>
+              <th>Hora Entrada</th>
+              <th>Hora Saida</th>
+            </tr>
+          </ng-template>
+  
+          <ng-template pTemplate="body" let-patio>
+            <tr>
+              <td>{{ patio.placaVeiculo }}</td>
+              <td>{{ patio.horarioChegada }}</td>
+              <td>{{ patio.horarioSaida }}</td>
+            </tr>
+          </ng-template>
+  
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="3">
+                Nenhua vaga Encontrada
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+  
+      <div class="ui-g-12">
+        <a pButton label="Dashboard" routerLink="/dashboard"></a>
+      </div>
+    </div>
+
+  </div>

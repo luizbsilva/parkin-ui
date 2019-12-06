@@ -1,0 +1,40 @@
+<div class="container">
+  <form autocomplete="off" (ngSubmit)="salvar()" [formGroup]="formulario">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1>{{ editando ? 'Edição de' : 'Novo' }} Patio</h1>
+      </div>
+
+
+      <div class="ui-g-12 ui-md-9 ui-fluid">
+        <label>Descrição</label>
+        <input pInputText type="text" name="descricaoPatio" formControlName="descricaoPatio">
+
+        <app-message [control]="formulario.get('descricaoPatio')" error="obrigatoriedade" text="Informe a descrição">
+        </app-message>
+        <app-message [control]="formulario.get('descricaoPatio')" error="tamanhoMinimo"
+          text="Mínimo de {{ formulario.get('descricaoPatio').errors?.tamanhoMinimo?.tamanho }} caracteres"></app-message>
+      </div>
+
+      <div class="ui-g-12 ui-md-9 ui-fluid">
+        <label>Numero de Vagas</label>
+        <input pInputText type="number" name="numeroDeVagas" formControlName="numeroDeVagas">
+
+        <app-message [control]="formulario.get('numeroDeVagas')" error="obrigatoriedade" text="Informe o numero de Vagas">
+        </app-message>
+      </div>
+
+      <div class="ui-g-12 ui-md-3 ui-fluid">
+        <label>Valor Hora</label>
+        <input pInputText type="text" name="taxaHora" placeholder="0,00" currencyMask
+          [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }" formControlName="taxaHora">
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Salvar" [disabled]="formulario.invalid || uploadEmAndamento"></button>
+        <button pButton type="button" label="Novo" class="ui-button-info" (click)="novo()"></button>
+        <a routerLink="/patios">Voltar para a pesquisa</a>
+      </div>
+    </div>
+  </form>
+</div>

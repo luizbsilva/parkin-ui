@@ -1,0 +1,68 @@
+<div class="container">
+  <form autocomplete="off" (ngSubmit)="salvar()" [formGroup]="formulario">
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1>Estacionamento</h1>
+      </div>
+
+      <div class="ui-g-4 ui-md-4 ui-fluid">
+        <label>Placa Veiculo</label>
+        <input pInputText type="text" (change)="carregarDadosEstacionamento()" name="placaVeiculo" formControlName="placaVeiculo">
+
+        <app-message [control]="formulario.get('placaVeiculo')" error="obrigatoriedade" text="Informe a descrição">
+        </app-message>
+        <app-message [control]="formulario.get('placaVeiculo')" error="tamanhoMinimo"
+          text="Mínimo de {{ formulario.get('placaVeiculo').errors?.tamanhoMinimo?.tamanho }} caracteres"></app-message>
+      </div>
+
+      <div class="ui-g-6 ui-md-6 ui-fluid" formGroupName="patio">
+        <label>Patio Destino do Veiculo</label>
+        <p-dropdown name="patio" [options]="patios" (onChange)="carregarNumeroDeVagas()" placeholder="Selecione"
+          [autoWidth]="false" [filter]="true" formControlName="codigo"></p-dropdown>
+      </div>
+
+      <div class="ui-g-12" *ngIf="isPatioSelecionado">
+        <h1>Para esse patio tem {{vagasDisponiveis}} vagas dispóniveis.</h1>
+      </div>
+
+      <div class="ui-g-2 ui-md-2 ui-fluid" *ngIf="isPatioSelecionado">
+        <label>Data</label>
+        <p-calendar name="dataEntrada" dateFormat="dd/mm/yy" [inline]="false" [readonlyInput]="false" [showIcon]="false"
+          formControlName="dataEntrada"></p-calendar>
+
+        <app-message [control]="formulario.get('dataEntrada')" error="required" text="Informe uma data de Criação">
+        </app-message>
+      </div>
+      
+      <div class="ui-g-2 ui-fluid" *ngIf="isPatioSelecionado">
+        <label>Horario Chegada</label>
+
+        <p-inputMask name="horarioChegada" formControlName="horarioChegada" mask="99:99"></p-inputMask>
+      </div>
+
+      <div class="ui-g-2 ui-fluid" *ngIf="isPatioSelecionado && isHorarioChegada">
+        <label>Horario Sáida</label>
+
+        <p-inputMask name="horarioSaida" formControlName="horarioSaida" mask="99:99"></p-inputMask>
+      </div>
+
+      <div class="ui-g-2 ui-md-2 ui-fluid" *ngIf="isPatioSelecionado && isHorarioChegada">
+        <label>Permamencia Veiculo</label>
+        <input pInputText type="text" name="valorPeriodo" placeholder="0,00" currencyMask disabled
+          [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }" formControlName="valorPeriodo">
+      </div>
+
+      <div class="ui-g-2 ui-md-2 ui-fluid" *ngIf="isPatioSelecionado && isHorarioChegada">
+        <label>Valor a ser cobrado</label>
+        <input pInputText type="text" name="tempoPermanencia" placeholder="0,00" currencyMask disabled
+          [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }" formControlName="tempoPermanencia">
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Salvar"></button>
+        <button pButton type="button" label="Novo" class="ui-button-info" (click)="novo()"></button>
+        <a routerLink="/patios">Voltar para a pesquisa</a>
+      </div>
+    </div>
+  </form>
+</div>

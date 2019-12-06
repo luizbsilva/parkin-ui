@@ -1,0 +1,50 @@
+<div class="container">
+  <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <h1>Novo Veiculo</h1>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label>Modelo</label>
+        <input pInputText type="text" name="modeloVeiculo" [(ngModel)]="veiculo.modeloVeiculo" #modeloVeiculo="ngModel"
+          required minlength="5">
+
+        <app-message [control]="modeloVeiculo" error="required" text="Informe o modelo"></app-message>
+        <app-message [control]="modeloVeiculo" error="minlength"
+          text="Mínimo de {{ modeloVeiculo.errors?.minlength?.requiredLength }} caracteres"></app-message>
+      </div>
+
+      <div class="ui-g-12 ui-md-9 ui-fluid">
+        <label>Placla</label>
+        <input pInputText type="text" name="placaVeiculo" [(ngModel)]="veiculo.placaVeiculo" #placaVeiculo="ngModel"
+          required>
+
+        <app-message [control]="placaVeiculo" error="required" text="Informe a Placa do Veiculo"></app-message>
+      </div>
+
+      <div class="ui-g-12 ui-md-4 ui-fluid">
+        <label>Cor</label>
+        <input pInputText type="text" name="corVeiculo" [(ngModel)]="veiculo.corVeiculo">
+      </div>
+
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label>Marca</label>
+
+        <p-dropdown placeholder="Selecione..." [autoWidth]="false" [filter]="true" [options]="marcas"
+          [(ngModel)]="veiculo.marcaVeiculo.codigo" name="marcaSelecionada" #marca="ngModel" required></p-dropdown>
+
+        <app-message [control]="marcaSelecionada" error="required" text="Informe a Marca do veiculo"></app-message>
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Salvar" [disabled]="f.invalid"></button>
+        <button pButton type="button" label="Nova" class="ui-button-info" (click)="nova(f)"></button>
+
+        <a routerLink="/veiculos">Voltar para a pesquisa</a>
+      </div>
+    </div>
+
+  </form>
+</div>

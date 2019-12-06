@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <h1>Dashboard</h1>
+    </div>
+
+    <div class="ui-g-12 ui-md-6 ui-fluid">
+      <label>Patios</label>
+
+      <p-dropdown placeholder="Selecione..." [autoWidth]="false" [filter]="true" [options]="patios"
+      (onChange)="carregarDados()" [(ngModel)]="patioSelecionado" name="patioSelecionado" #patio="ngModel" required></p-dropdown>
+    </div>
+
+    
+    <div class="ui-md-8" *ngIf="isPatioSelecionado">
+      <h1> Esse patio possui {{totalVagas}} vagas.</h1>
+      <p> Data: {{diaRelatorio}}.</p>
+    </div>
+
+    <div class="ui-md-8" *ngIf="isPatioSelecionado">
+      <p-panel header="Lançamento por Patio">
+        <p-chart type="pie" [data]="pieChartData" [options]="options"></p-chart>
+      </p-panel>
+    </div>
+
+  </div>
+</div>

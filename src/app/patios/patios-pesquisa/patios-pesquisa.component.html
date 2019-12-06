@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="ui-g">
+
+    <form autocomplete="off" (ngSubmit)="pesquisar()">
+
+      <div class="ui-g-12">
+        <h1>Patios</h1>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label>Descrição Patio</label>
+        <input pInputText type="text" name="descricao" [(ngModel)]="filtro.descricao">
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Pesquisar"></button>
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <p-table [value]="patios" [responsive]="true"
+        [paginator]="true" [rows]="filtro.itensPorPagina"
+        [lazy]="true" [totalRecords]="totalRegistros"
+        (onLazyLoad)="aoMudarPagina($event)"
+        #tabela>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Descricao</th>
+            <th>Vagas</th>
+            <th>Valor</th>
+            <th class="col-acoes-header"></th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-patio>
+          <tr>
+            <td>{{ patio.descricaoPatio }}</td>
+            <td>{{ patio.numeroDeVagas }}</td>
+            <td>{{ patio.taxaHora | number:'1.2-2' }}</td>
+            <td class="col-acoes">
+              <a pButton icon="fa fa-pencil"
+                pTooltip="Editar" tooltipPosition="top"
+                [routerLink]="['/patios', patio.codigo]"></a>
+
+              <button pButton icon="fa fa-trash"
+                pTooltip="Excluir" tooltipPosition="top"
+                (click)="confirmarExclusao(patio)"></button>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="5">
+              Nenhum Patio encontrado
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div class="ui-g-12">
+      <a pButton label="Novo Pátio" routerLink="/patios/novo"></a>
+    </div>
+  </div>
+
+</div>
