@@ -6,7 +6,7 @@
 
 ### Clonando o Repositório
 
-`https://github.com/luizbsilva/desafio-softplan-ui.git`
+`https://github.com/luizbsilva/parking-ui.git`
 
 ### Instalando as Dependências
 
